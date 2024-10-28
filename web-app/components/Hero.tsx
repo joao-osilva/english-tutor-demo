@@ -1,32 +1,35 @@
 "use client";
 
-import { useState } from "react";
-import { Button } from "@/components/ui/button";
-import { Mic, MicOff } from "lucide-react";
+import { LiveKitRoom, useVoiceAssistant, RoomAudioRenderer} from "@livekit/components-react";
+import { useCallback, useState, useEffect } from "react";
+import { motion } from "framer-motion";
+import { Mic, X as CloseIcon } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
 export default function Hero() {
-  const [isListening, setIsListening] = useState(false);
   const { toast } = useToast();
+  const [connectionDetails, updateConnectionDetails] = useState(undefined);
+  const [agentState, setAgentState] = useState("disconnected");
 
-  const handleMicClick = () => {
-    setIsListening(!isListening);
-    toast({
-      title: isListening ? "Catch you later! 👋" : "Let's rock! 🎸",
-      description: isListening 
-        ? "You're getting better every day! Keep it up! ⭐" 
-        : "Just chat away - Maya's all ears! 🎯",
-      duration: 3000,
-    });
-  };
+  const onConnectButtonClicked = useCallback(async () => {
+    try {
+      setAgentState("connecting");
+      const url = new URL(
+        process.env.NEXT_PUBLIC_CONN_DETAILS_ENDPOINT ?? "/api/connection-details",
+        window.location.origin
+      );
+      const response = await fetch(url.toString());
+      const connectionDetailsData = await response.json();
+      updateConnectionDetails(connectionDetailsData);
+    } catch (error) {
+      console.error('Connection error:', error);
+      setAgentState("disconnected");
+    }
+  }, [toast]);
 
   return (
     <section id="home" className="min-h-[90vh] relative flex items-center pt-20 sm:pt-24">
-      <div className="absolute inset-0 z-0">
-        <div className="absolute inset-0 bg-gradient-to-r from-blue-50 to-purple-50 opacity-70" />
-        <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1516321497487-e288fb19713f?q=80&w=2070')] bg-cover bg-center opacity-10" />
-      </div>
-
+           
       <div className="z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full py-12 sm:py-16">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <div className="text-center lg:text-left space-y-6">
@@ -39,27 +42,61 @@ export default function Hero() {
               Hey there! 👋 I'm Maya, your AI speaking buddy. No boring textbooks - just fun chats! Let's get talking! ✨
             </p>
 
-            <Button
-              size="lg"
-              onClick={handleMicClick}
-              className={`${
-                isListening 
-                  ? "bg-red-500 hover:bg-red-600" 
-                  : "bg-blue-600 hover:bg-blue-700"
-              } text-white rounded-full px-6 sm:px-8 py-4 sm:py-6 text-base sm:text-lg transition-all duration-300 ease-in-out transform hover:scale-105 w-full sm:w-auto`}
+          <div className="flex flex-col items-center space-y-8">           
+
+            <LiveKitRoom
+              token={connectionDetails?.participantToken}
+              serverUrl={connectionDetails?.serverUrl}
+              connect={connectionDetails !== undefined}
+              audio={true}
+              video={false}
+              onDisconnected={() => {
+                updateConnectionDetails(undefined);
+                setAgentState("disconnected");
+              }}
+              onError={(error) => {
+                console.error('LiveKit Error:', error);
+                setAgentState("disconnected");
+              }}
+              onConnected={() => {
+                console.log('Connected to LiveKit room');
+                setAgentState("connected");
+              }}
             >
-              {isListening ? (
-                <>
-                  <MicOff className="mr-2 h-5 w-5 sm:h-6 sm:w-6" />
-                  Take a Break
-                </>
-              ) : (
-                <>
-                  <Mic className="mr-2 h-5 w-5 sm:h-6 sm:w-6" />
-                  Let's Talk!
-                </>
+              <SimpleVoiceAssistant onStateChange={setAgentState} />
+              <ControlBar
+                onConnectButtonClicked={onConnectButtonClicked}
+                agentState={agentState}
+                updateConnectionDetails={updateConnectionDetails}
+                setAgentState={setAgentState}
+              />
+              <RoomAudioRenderer />
+            </LiveKitRoom>
+
+            {/* Status messages */}
+            <motion.p 
+              className="text-gray-400 text-sm text-center"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.5 }}
+            >
+              {agentState === "disconnected" && (
+                "Tap the microphone to begin your conversation with Maya"
               )}
-            </Button>
+              {agentState === "connecting" && (
+                "Establishing connection..."
+              )}
+              {agentState === "connected" && (
+                "Connected. You can start talking"
+              )}
+              {agentState === "speaking" && (
+                "Maya is sharing her thoughts"
+              )}
+              {agentState === "listening" && (
+                "Listening to your question..."
+              )}
+            </motion.p>
+          </div>
           </div>
 
           <div className="relative lg:block">
@@ -84,5 +121,59 @@ export default function Hero() {
         </div>
       </div>
     </section>
+  );
+}
+
+// Update SimpleVoiceAssistant component with animations
+function SimpleVoiceAssistant({ onStateChange }) {
+  const { state } = useVoiceAssistant();
+  
+  useEffect(() => {
+    if (state) {
+      onStateChange(state);
+    }
+  }, [onStateChange, state]);
+
+  return null;
+}
+
+function ControlBar({ onConnectButtonClicked, agentState, updateConnectionDetails, setAgentState }) {
+  const handleDisconnect = () => {
+    updateConnectionDetails(undefined);
+    setAgentState("disconnected");
+  };
+
+  return (
+    <div className="relative h-[100px] flex items-center justify-center">
+      {agentState === "disconnected" && (
+        <motion.button
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          onClick={onConnectButtonClicked}
+          className="flex items-center gap-2 px-8 py-3 
+            bg-[#0071e3] hover:bg-[#0077ed] 
+            text-white rounded-full transition-colors"
+        >
+          <Mic className="w-5 h-5" />
+          Start a conversation
+        </motion.button>
+      )}
+
+      {agentState !== "disconnected" && (
+        <motion.button 
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          className="bg-[#ff3b30] hover:bg-[#ff453a] 
+            text-white px-8 py-3 rounded-full transition-colors
+            flex items-center gap-2"
+          onClick={handleDisconnect}
+        >
+          <CloseIcon className="w-5 h-5" />
+          End conversation
+        </motion.button>
+      )}
+    </div>
   );
 }

@@ -1,7 +1,7 @@
 services:
   api:
     build: 
-      context: ./jobs-agent
+      context: ./tutor-agent
     network_mode: "host"
     environment:
       - LIVEKIT_URL=${LIVEKIT_URL}

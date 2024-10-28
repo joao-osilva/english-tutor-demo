@@ -1,4 +1,6 @@
-import { Mail, Youtube, Twitter, MessageCircle } from 'lucide-react';
+import { MdEmail } from "react-icons/md";
+import { FaYoutube, FaXTwitter } from "react-icons/fa6";
+import { FaTiktok } from "react-icons/fa";
 
 export default function Footer() {
   return (
@@ -15,7 +17,7 @@ export default function Footer() {
               className="text-gray-600 hover:text-blue-600 transition-colors p-2"
               aria-label="Say Hi!"
             >
-              <Mail className="h-4 w-4 sm:h-5 sm:w-5" />
+              <MdEmail className="h-4 w-4 sm:h-5 sm:w-5" />
             </a>
             <a
               href="https://youtube.com/@askmaya"
@@ -24,25 +26,25 @@ export default function Footer() {
               className="text-gray-600 hover:text-red-600 transition-colors p-2"
               aria-label="Watch Maya's Tips"
             >
-              <Youtube className="h-4 w-4 sm:h-5 sm:w-5" />
+              <FaYoutube className="h-4 w-4 sm:h-5 sm:w-5" />
             </a>
             <a
               href="https://twitter.com/askmaya"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-gray-600 hover:text-blue-400 transition-colors p-2"
-              aria-label="Maya's Twitter"
+              className="text-gray-600 hover:text-black transition-colors p-2"
+              aria-label="Maya's X (formerly Twitter)"
             >
-              <Twitter className="h-4 w-4 sm:h-5 sm:w-5" />
+              <FaXTwitter className="h-4 w-4 sm:h-5 sm:w-5" />
             </a>
             <a
               href="https://tiktok.com/@askmaya"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-gray-600 hover:text-black transition-colors p-2"
+              className="text-gray-600 hover:text-[#ff0050] transition-colors p-2"
               aria-label="Maya's TikTok"
             >
-              <MessageCircle className="h-4 w-4 sm:h-5 sm:w-5" />
+              <FaTiktok className="h-4 w-4 sm:h-5 sm:w-5" />
             </a>
           </div>
         </div>
