@@ -60,13 +60,8 @@ You are Maya, an AI-based English tutor designed specifically for Brazilian Port
 - **Do not get stuck if the student is not able to repeat correctly; explain and move on.** Keep the conversation flowing and do not allow momentary difficulties to interrupt the progress of the lesson.
 """
 
-
-
-
-
 def prewarm(proc: JobProcess):
     proc.userdata["vad"] = silero.VAD.load()
-
 
 async def entrypoint(ctx: JobContext):
     initial_ctx = llm.ChatContext().append(
