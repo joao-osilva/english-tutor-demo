@@ -4,6 +4,13 @@ import { useState, useEffect } from "react";
 import Logo from "./Logo";
 import { Menu, X } from "lucide-react";
 
+const navigationItems = [
+  { id: 'home', label: 'Home' },
+  { id: 'features', label: 'Features' },
+  { id: 'pricing', label: 'Pricing' },
+  { id: 'faq', label: 'FAQ' }
+];
+
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -34,6 +41,18 @@ export default function Header() {
     }
   };
 
+  const NavButton = ({ id, label, isMobile = false }) => (
+    <button 
+      onClick={() => scrollToSection(id)}
+      className={`
+        text-gray-600 hover:text-gray-900 transition-colors
+        ${isMobile ? 'block w-full text-left px-4 py-2 hover:bg-gray-50 rounded-lg' : ''}
+      `}
+    >
+      {label}
+    </button>
+  );
+
   return (
     <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
       isScrolled || isMenuOpen ? "bg-white/80 backdrop-blur-sm shadow-sm" : "bg-transparent"
@@ -49,18 +68,9 @@ export default function Header() {
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex space-x-8">
-            <button 
-              onClick={() => scrollToSection('home')}
-              className="text-gray-600 hover:text-gray-900 transition-colors"
-            >
-              Home
-            </button>
-            <button 
-              onClick={() => scrollToSection('features')}
-              className="text-gray-600 hover:text-gray-900 transition-colors"
-            >
-              Features
-            </button>
+            {navigationItems.map(item => (
+              <NavButton key={item.id} {...item} />
+            ))}
           </nav>
 
           {/* Mobile Menu Button */}
@@ -80,18 +90,9 @@ export default function Header() {
         {/* Mobile Navigation */}
         {isMenuOpen && (
           <nav className="md:hidden py-4 px-2 space-y-4">
-            <button 
-              onClick={() => scrollToSection('home')}
-              className="block w-full text-left px-4 py-2 text-gray-600 hover:text-gray-900 hover:bg-gray-50 rounded-lg transition-colors"
-            >
-              Home
-            </button>
-            <button 
-              onClick={() => scrollToSection('features')}
-              className="block w-full text-left px-4 py-2 text-gray-600 hover:text-gray-900 hover:bg-gray-50 rounded-lg transition-colors"
-            >
-              Features
-            </button>
+            {navigationItems.map(item => (
+              <NavButton key={item.id} {...item} isMobile />
+            ))}
           </nav>
         )}
       </div>
