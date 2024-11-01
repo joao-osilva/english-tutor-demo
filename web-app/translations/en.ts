@@ -129,5 +129,63 @@ export const en = {
       twitter: "Maya's X (formerly Twitter)",
       tiktok: "Maya's TikTok"
     }
+  },
+  profile: {
+    title: "Your Profile",
+    subtitle: "Manage your account and view your practice history",
+    credits: {
+      title: "Available Credits",
+      subtitle: "Use credits for practice sessions",
+      remaining: "credits remaining",
+      minutes: "minutes of practice",
+    },
+    stats: {
+      title: "Practice Statistics",
+      totalSessions: "Total Sessions",
+      totalMinutes: "Total Minutes",
+      averageScore: "Average Score",
+    },
+    history: {
+      title: "Practice History",
+      subtitle: "Your recent practice sessions",
+      noSessions: "No practice sessions yet. Start practicing to see your history!",
+      date: "Date",
+      duration: "Duration",
+      score: "Score",
+      topic: "Topic",
+    },
+    settings: {
+      title: "Account Settings",
+      language: "Preferred Language",
+      notifications: "Email Notifications",
+      deleteAccount: "Delete Account",
+    }
+  },
+  dashboard: {
+    navigation: {
+      home: "Back to Home",
+      profile: "Profile",
+      classroom: "Classroom",
+      more: "More",
+    },
+    classroom: {
+      title: "Classroom",
+      subtitle: "Start practicing with your AI tutor",
+      startPractice: "Start Practice",
+      noCredits: {
+        title: "No credits available",
+        description: "Purchase credits to continue practicing",
+        action: "Get Credits"
+      },
+      status: {
+        available: "Ready to practice",
+        inProgress: "In progress",
+        connecting: "Connecting..."
+      }
+    },
+    mobileMenu: {
+      close: "Close",
+      signOut: "Sign out"
+    }
   }
 };

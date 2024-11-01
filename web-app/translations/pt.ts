@@ -130,4 +130,62 @@ export const pt = {
       tiktok: "Maya no TikTok",
     },
   },
+  profile: {
+    title: "Seu Perfil",
+    subtitle: "Gerencie sua conta e veja seu histórico de prática",
+    credits: {
+      title: "Créditos Disponíveis",
+      subtitle: "Use créditos para sessões de prática",
+      remaining: "créditos restantes",
+      minutes: "minutos de prática",
+    },
+    stats: {
+      title: "Estatísticas de Prática",
+      totalSessions: "Total de Sessões",
+      totalMinutes: "Total de Minutos",
+      averageScore: "Pontuação Média",
+    },
+    history: {
+      title: "Histórico de Prática",
+      subtitle: "Suas sessões recentes de prática",
+      noSessions: "Nenhuma sessão de prática ainda. Comece a praticar para ver seu histórico!",
+      date: "Data",
+      duration: "Duração",
+      score: "Pontuação",
+      topic: "Tópico",
+    },
+    settings: {
+      title: "Configurações da Conta",
+      language: "Idioma Preferido",
+      notifications: "Notificações por Email",
+      deleteAccount: "Excluir Conta",
+    }
+  },
+  dashboard: {
+    navigation: {
+      home: "Voltar ao Início",
+      profile: "Perfil",
+      classroom: "Sala de Aula",
+      more: "Mais",
+    },
+    classroom: {
+      title: "Sala de Aula",
+      subtitle: "Comece a praticar com sua tutora virtual",
+      startPractice: "Começar Prática",
+      noCredits: {
+        title: "Sem créditos disponíveis",
+        description: "Compre créditos para continuar praticando",
+        action: "Obter Créditos"
+      },
+      status: {
+        available: "Pronto para praticar",
+        inProgress: "Em andamento",
+        connecting: "Conectando..."
+      }
+    },
+    mobileMenu: {
+      close: "Fechar",
+      signOut: "Sair"
+    }
+  }
 };
