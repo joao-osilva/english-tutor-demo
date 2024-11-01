@@ -30,17 +30,68 @@ export default function Hero() {
   }, [toast]);
 
   return (
-    <section id="home" className="min-h-[90vh] relative flex items-center pt-20 sm:pt-24">
-      <div className="z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full py-12 sm:py-16">
+    <section id="home" className="min-h-[90vh] relative flex items-center pt-20 sm:pt-24 overflow-hidden">
+      {/* Gradient Background Elements */}
+      <div className="absolute inset-0 overflow-hidden">
+        {/* Main gradient background */}
+        <div className="absolute inset-0 bg-gradient-to-b from-blue-50 to-white" />
+        
+        {/* Animated background shapes */}
+        <div className="absolute inset-0">
+          {/* Top-right decorative element */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 1.5, repeat: Infinity, repeatType: "reverse" }}
+            className="absolute top-10 right-[10%] w-96 h-96 bg-gradient-to-br from-blue-400/20 to-purple-400/20 rounded-full blur-3xl"
+          />
+
+          {/* Bottom-left decorative element */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 2, repeat: Infinity, repeatType: "reverse", delay: 0.5 }}
+            className="absolute bottom-10 -left-20 w-96 h-96 bg-gradient-to-tr from-purple-400/20 to-pink-400/20 rounded-full blur-3xl"
+          />
+
+          {/* Center decorative element */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 1.8, repeat: Infinity, repeatType: "reverse", delay: 1 }}
+            className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-gradient-to-r from-yellow-400/20 to-orange-400/20 rounded-full blur-3xl"
+          />
+        </div>
+
+        {/* Noise texture overlay */}
+        <div className="absolute inset-0 bg-noise opacity-[0.03]" />
+        
+        {/* Grid pattern overlay */}
+        <div className="absolute inset-0 bg-grid-white/[0.02] bg-[length:32px_32px]" />
+      </div>
+
+      {/* Content */}
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full py-12 sm:py-16">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          {/* Left column */}
           <div className="text-center lg:text-left space-y-6">
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600">
+            <motion.h1 
+              className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+            >
               {t.hero.title}
-            </h1>
+            </motion.h1>
             
-            <p className="text-lg sm:text-xl text-gray-600 leading-relaxed max-w-xl mx-auto lg:mx-0">
+            <motion.p 
+              className="text-lg sm:text-xl text-gray-600 leading-relaxed max-w-xl mx-auto lg:mx-0"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+            >
               {t.hero.subtitle}
-            </p>
+            </motion.p>
 
             <div className="flex flex-col items-center space-y-8">           
               <LiveKitRoom
@@ -88,9 +139,15 @@ export default function Hero() {
             </div>
           </div>
 
-          <div className="relative lg:block">
+          {/* Right column */}
+          <motion.div 
+            className="relative lg:block"
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+          >
             <div className="absolute -inset-4 bg-gradient-to-r from-blue-500/10 to-purple-500/10 rounded-2xl blur-xl" />
-            <div className="relative bg-white/50 backdrop-blur-sm rounded-2xl p-4 sm:p-8 shadow-xl">
+            <div className="relative bg-white/70 backdrop-blur-sm rounded-2xl p-4 sm:p-8 shadow-xl border border-white/20">
               <div className="space-y-4">
                 <div className="flex items-start gap-3 sm:gap-4">
                   <div className="w-6 h-6 sm:w-8 sm:h-8 rounded-full bg-blue-100 flex items-center justify-center flex-shrink-0">
@@ -110,7 +167,7 @@ export default function Hero() {
                 </div>
               </div>
             </div>
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>

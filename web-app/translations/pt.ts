@@ -11,8 +11,8 @@ export const pt = {
     faq: "FAQ",
   },
   hero: {
-    title: "Pronto para falar\ncomo um nativo?",
-    subtitle: "Oi! 👋 Sou a Maya, sua parceira virtual de conversa. Nada de livros chatos — só bate-papos divertidos! Bora conversar! ✨",
+    title: "Pronto para falar como nativo?",
+    subtitle: "Oi! 👋 Eu sou a Maya, sua parceira de conversa criada com Inteligência Artificial. Nada de livros chatos — aqui, é só papo divertido e inteligente! Bora conversar? ✨",
     startConversation: "Começar a conversar",
     endConversation: "Encerrar conversa",
     status: {
