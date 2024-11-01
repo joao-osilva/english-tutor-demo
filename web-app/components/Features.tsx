@@ -1,38 +1,43 @@
-import { Brain, Mic, Sparkles, Zap } from "lucide-react";
+"use client";
 
-const features = [
-  {
-    icon: <Mic className="h-6 w-6 sm:h-8 sm:w-8 text-blue-500" />,
-    title: "Just Chat Away!",
-    description: "No typing, no rules - just speak and have fun! It's that easy! 🎙️"
-  },
-  {
-    icon: <Brain className="h-6 w-6 sm:h-8 sm:w-8 text-purple-500" />,
-    title: "Smart & Friendly",
-    description: "Maya's got your back! Get cool tips to sound more natural 🎯"
-  },
-  {
-    icon: <Sparkles className="h-6 w-6 sm:h-8 sm:w-8 text-indigo-500" />,
-    title: "Anytime, Anywhere",
-    description: "Practice on the bus, at home, or while making coffee! ✨"
-  },
-  {
-    icon: <Zap className="h-6 w-6 sm:h-8 sm:w-8 text-rose-500" />,
-    title: "Quick Progress",
-    description: "Watch your confidence grow with every chat! ⚡"
-  }
-];
+import { Brain, Mic, Sparkles, Zap } from "lucide-react";
+import { useTranslation } from '@/contexts/TranslationContext';
 
 export default function Features() {
+  const { t } = useTranslation();
+
+  const features = [
+    {
+      icon: <Mic className="h-6 w-6 sm:h-8 sm:w-8 text-blue-500" />,
+      title: t.features.items[0].title,
+      description: t.features.items[0].description
+    },
+    {
+      icon: <Brain className="h-6 w-6 sm:h-8 sm:w-8 text-purple-500" />,
+      title: t.features.items[1].title,
+      description: t.features.items[1].description
+    },
+    {
+      icon: <Sparkles className="h-6 w-6 sm:h-8 sm:w-8 text-indigo-500" />,
+      title: t.features.items[2].title,
+      description: t.features.items[2].description
+    },
+    {
+      icon: <Zap className="h-6 w-6 sm:h-8 sm:w-8 text-rose-500" />,
+      title: t.features.items[3].title,
+      description: t.features.items[3].description
+    }
+  ];
+
   return (
     <section id="features" className="py-16 sm:py-24 bg-gradient-to-b from-white to-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12 sm:mb-16">
           <h2 className="text-3xl sm:text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600">
-            Why You'll Love Me
+            {t.features.title}
           </h2>
           <p className="mt-4 text-lg sm:text-xl text-gray-600">
-            Learning English has never been this fun! 🚀
+            {t.features.subtitle}
           </p>
         </div>
 

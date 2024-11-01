@@ -1,19 +1,22 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { useTranslation } from '@/contexts/TranslationContext';
 import Logo from "./Logo";
+import LanguageToggle from "./LanguageToggle";
 import { Menu, X } from "lucide-react";
 
-const navigationItems = [
-  { id: 'home', label: 'Home' },
-  { id: 'features', label: 'Features' },
-  { id: 'pricing', label: 'Pricing' },
-  { id: 'faq', label: 'FAQ' }
-];
-
 export default function Header() {
+  const { t } = useTranslation();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const navigationItems = [
+    { id: 'home', label: t.header.home },
+    { id: 'features', label: t.header.features },
+    { id: 'pricing', label: t.header.pricing },
+    { id: 'faq', label: t.header.faq }
+  ];
 
   useEffect(() => {
     const handleScroll = () => {
@@ -62,29 +65,36 @@ export default function Header() {
           <div className="flex items-center space-x-2 cursor-pointer" onClick={() => scrollToSection('home')}>
             <Logo />
             <span className="text-xl font-semibold bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600">
-              Ask Maya
+              {t.common.appName}
             </span>
           </div>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex space-x-8">
-            {navigationItems.map(item => (
-              <NavButton key={item.id} {...item} />
-            ))}
-          </nav>
+          <div className="hidden md:flex items-center space-x-8">
+            <nav className="flex space-x-8">
+              {navigationItems.map(item => (
+                <NavButton key={item.id} {...item} />
+              ))}
+            </nav>
+            
+            <LanguageToggle />
+          </div>
 
           {/* Mobile Menu Button */}
-          <button
-            className="md:hidden p-2 rounded-lg hover:bg-gray-100 transition-colors"
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-            aria-label="Toggle menu"
-          >
-            {isMenuOpen ? (
-              <X className="h-6 w-6 text-gray-600" />
-            ) : (
-              <Menu className="h-6 w-6 text-gray-600" />
-            )}
-          </button>
+          <div className="md:hidden flex items-center gap-4">
+            <LanguageToggle />
+            <button
+              className="p-2 rounded-lg hover:bg-gray-100 transition-colors"
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              aria-label="Toggle menu"
+            >
+              {isMenuOpen ? (
+                <X className="h-6 w-6 text-gray-600" />
+              ) : (
+                <Menu className="h-6 w-6 text-gray-600" />
+              )}
+            </button>
+          </div>
         </div>
 
         {/* Mobile Navigation */}

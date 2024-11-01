@@ -8,40 +8,20 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { Plus } from "lucide-react";
-
-const faqs = [
-  {
-    question: "What is Maya?",
-    answer: "Maya is your AI speaking buddy that helps you practice English conversation. She's available 24/7 and adapts to your level! 🤖✨"
-  },
-  {
-    question: "How do credits work?",
-    answer: "Simple! 1 credit = 1 minute of conversation with Maya. Your credits never expire, so practice at your own pace! ⏱️"
-  },
-  {
-    question: "How do I pay?",
-    answer: "We use PIX for instant, secure payments. Just scan the code with your banking app and start chatting! 🏦"
-  },
-  {
-    question: "Can I try before buying?",
-    answer: "Of course! Get 5 free minutes to chat with Maya. No credit card needed - just start talking! 🎉"
-  },
-  {
-    question: "What can I talk about?",
-    answer: "Anything you like! Maya can discuss daily life, hobbies, travel, work, or any topic you're interested in! 💭"
-  }
-];
+import { useTranslation } from '@/contexts/TranslationContext';
 
 export default function FAQ() {
+  const { t } = useTranslation();
+
   return (
     <section id="faq" className="py-24 px-4 bg-gradient-to-b from-blue-50/50 to-white scroll-mt-16">
       <div className="max-w-4xl mx-auto">
         <motion.div className="text-center mb-16">
           <h2 className="text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600 mb-4">
-            Quick Answers 
+            {t.faq.title}
           </h2>
           <p className="text-gray-600 text-lg">
-            Everything you need to know 💬
+            {t.faq.subtitle}
           </p>
         </motion.div>
 
@@ -52,7 +32,7 @@ export default function FAQ() {
           transition={{ delay: 0.2 }}
         >
           <Accordion type="single" collapsible className="w-full space-y-4">
-            {faqs.map((faq, index) => (
+            {t.faq.questions.map((faq, index) => (
               <AccordionItem 
                 key={index} 
                 value={`item-${index}`}
@@ -71,12 +51,12 @@ export default function FAQ() {
 
         <motion.div className="mt-12 text-center">
           <p className="text-gray-600">
-            Need help?{' '}
+            {t.common.needHelp}{' '}
             <a 
               href="mailto:support@askmaya.com" 
               className="text-blue-600 hover:text-blue-700 font-medium inline-flex items-center gap-1 hover:gap-2 transition-all"
             >
-              Contact us 
+              {t.common.contactUs}
               <span className="text-xl">→</span>
             </a>
           </p>
